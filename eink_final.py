@@ -313,6 +313,9 @@ def create_screen(epd, current_tab):
         y += 4
         draw.text((5, y), "Connect: sudo raspi-config", font=font_tiny, fill=0)
     
+    # Rotate image 180 degrees (flip upside down)
+    image = image.rotate(180)
+    
     return image
 
 def main():
