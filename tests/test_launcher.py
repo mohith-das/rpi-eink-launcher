@@ -94,6 +94,13 @@ class ShellTests(unittest.TestCase):
         shell.handle_touch(20, 40, 11.0)
         self.assertIs(shell.active, applets[4])
 
+    def test_touch_offline_fallback_waits_until_five_seconds_after_ready(self) -> None:
+        self.shell.mark_ready(100.0)
+        self.assertFalse(self.shell.tick(104.9))
+        self.assertIsNone(self.shell.active)
+        self.assertTrue(self.shell.tick(105.0))
+        self.assertIs(self.shell.active, self.info)
+
 
 if __name__ == "__main__":
     unittest.main()

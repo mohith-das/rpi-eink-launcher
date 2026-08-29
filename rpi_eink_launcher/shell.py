@@ -39,6 +39,10 @@ class LauncherShell:
         self._fallback_opened = False
         self.launcher_page = 0
 
+    def mark_ready(self, now: float) -> None:
+        """Start fallback timing after slow e-paper hardware initialization."""
+        self._started_at = now
+
     @property
     def launcher_pages(self) -> int:
         return max(1, (len(self.registry.all()) + 3) // 4)
@@ -173,6 +177,7 @@ def run(display, touch=None, config_dir: Path | None = None) -> None:
     shell = LauncherShell(registry, touch)
     display.initialize()
     touch.initialize()
+    shell.mark_ready(time.monotonic())
     dirty = True
     try:
         while True:
