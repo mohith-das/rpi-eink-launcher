@@ -1,0 +1,4 @@
+Pillow>=9.4
+gpiozero>=2.0
+spidev>=3.5
+smbus>=1.1.post2
